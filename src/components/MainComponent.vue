@@ -21,7 +21,7 @@
         Ashiko &bull; Alexandre RAGUIN
       </div>
     </div>
-    <div id="theme-toggle" title="Toggle light/dark theme." onClick={handleThemeToggle}>
+    <div id="theme-toggle" title="Toggle light/dark theme." @click="handleThemeToggle">
       <i class="bx bx-moon"></i>
     </div>
     <div id="return-toggle" title="Retour au repository GitHub&copy;.">
@@ -61,7 +61,8 @@ export default {
     if (this.isOnline) {
       this.getLocation();
     }
-    this.getBatteryLevel(); 
+    this.getBatteryLevel();
+    this.loadTheme(); // Charger le thème au montage
     window.addEventListener('online', this.updateOnlineStatus);
     window.addEventListener('offline', this.updateOnlineStatus);
   },
@@ -140,6 +141,20 @@ export default {
     updateBatteryStatus(battery) {
       this.batteryLevel = Math.round(battery.level * 100);
       this.isCharging = battery.charging;
+    },
+    handleThemeToggle() {
+      document.body.classList.toggle('dark-theme');
+      this.saveTheme(); // Sauvegarder le thème après le changement
+    },
+    saveTheme() {
+      const isDarkTheme = document.body.classList.contains('dark-theme');
+      localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light');
+    },
+    loadTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+      }
     }
   },
   computed: {

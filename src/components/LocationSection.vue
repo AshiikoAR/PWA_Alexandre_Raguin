@@ -5,8 +5,8 @@
       <p>{{ latitude }} / {{ longitude }}</p>
     </span>
     <span>
-  <h1>Adresse (approximative)</h1>
-  <p>{{ address }}</p>
+      <h1>Adresse (approximative)</h1>
+      <p>{{ address }}</p>
     </span>
   </div>
 </template>

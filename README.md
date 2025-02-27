@@ -58,6 +58,25 @@ ou
 yarn lint
 ```
 
+### Tests
+Pour exécuter les tests unitaires :
+```bash
+npm run test:unit
+```
+ou
+```bash
+yarn test:unit
+```
+
+Pour exécuter les tests end-to-end :
+```bash
+npm run test:e2e
+```
+ou
+```bash
+yarn test:e2e
+```
+
 ### Personnaliser la configuration
 Voir [Configuration Reference](https://cli.vuejs.org/config/).
 
@@ -67,6 +86,9 @@ Voir [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## Déploiement
 Pour déployer l'application, suivez les instructions de votre fournisseur d'hébergement préféré. Assurez-vous que votre serveur est configuré pour servir les fichiers statiques générés dans le dossier `dist`.
+
+## Contribution
+Les contributions sont les bienvenues ! Pour proposer des modifications, veuillez ouvrir une issue d'abord pour discuter de ce que vous aimeriez changer. Vous pouvez également forker le projet et soumettre une pull request.
 
 ## Crédit(s)
 Application PWA développée par [A. RAGUIN](https://github.com/AshiikoAR).

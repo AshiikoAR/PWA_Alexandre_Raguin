@@ -1,13 +1,32 @@
 <template>
   <div class="call-section">
-    <h2>Passer un appel téléphonique</h2>
-    <input type="tel" v-model="phoneNumber" placeholder="Entrez le numéro de téléphone" />
-    <button @click="makeCall">Appeler</button>
-    <h2>Envoyer un mot de passe par SMS</h2>
-    <input type="tel" v-model="otpPhoneNumber" placeholder="Entrez le numéro de téléphone pour le mot de passe" />
-    <button @click="sendOtp">Envoyer le mot de passe</button>
-    <input type="text" v-model="otp" placeholder="Entrez le mot de passe" />
-    <button @click="validateOtp">Valider</button>
+    <span>
+      <h1>Passer un appel téléphonique</h1>
+      <div class="form-simple">
+        <div>
+          <input type="tel" v-model="phoneNumber" placeholder="Entrez le numéro de téléphone" />
+          <i class='bx bxs-phone'></i>
+        </div>
+        <button @click="makeCall">Appeler</button>
+      </div>
+    </span>
+    <span>
+      <h1>Envoyer un mot de passe par SMS (OTP)</h1>
+      <div class="form-simple">
+        <div>
+          <input type="tel" v-model="otpPhoneNumber" placeholder="Entrez le numéro de téléphone" />
+          <i class='bx bxs-send' ></i>
+        </div>
+        <button @click="sendOtp">Envoyer</button>
+      </div>
+      <div class="form-simple">
+        <div>
+          <input type="text" v-model="otp" placeholder="Entrez le mot de passe (OTP)" />
+          <i class='bx bxs-badge-check'></i>
+        </div>
+        <button @click="validateOtp">Valider</button>
+      </div>
+    </span>
   </div>
 </template>
 
@@ -36,6 +55,7 @@ export default {
       if (this.otpPhoneNumber) {
         const otp = Math.floor(100000 + Math.random() * 900000).toString(); // Générer un OTP aléatoire
         this.otp = otp;
+
         alert(`Mot de passe envoyé à ${this.otpPhoneNumber}: ${otp}`); // Simuler l'envoi du SMS
       } else {
         alert('Veuillez entrer un numéro de téléphone valide.');

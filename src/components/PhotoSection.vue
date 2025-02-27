@@ -1,12 +1,16 @@
 <template>
   <div class="photo-section">
-    <video ref="video" autoplay width="400px"></video>
-    <button @click="takePhoto" v-if="photos.length < photoQuota">Prendre une photo</button>
-    <button @click="clearPhotos">Effacer les photos</button>
+    <video ref="video" autoplay></video>
+    <div class="photo-actions">
+      <button @click="takePhoto" :disabled="photos.length >= photoQuota" title="Prendre une photo.">
+        <i :class="photos.length >= photoQuota ? 'bx bx-camera-off' : 'bx bx-camera'"></i>
+      </button>
+      <button @click="clearPhotos" title="Effacer l'ensemble des photos."><i class='bx bx-trash'></i></button>
+    </div>
     <div id="photoGallery">
       <div v-for="(photo, index) in photos" :key="index" class="photo-item">
-        <img :src="photo" />
-        <button @click="deletePhoto(index)">Supprimer</button>
+        <img :src="photo" @click="openPhotoInNewTab(photo)" />
+        <button @click="deletePhoto(index)"><i class='bx bx-trash'></i> Supprimer</button>
       </div>
     </div>
   </div>
@@ -18,7 +22,7 @@ export default {
   data() {
     return {
       photos: [],
-      photoQuota: 9
+      photoQuota: 8
     };
   },
   mounted() {
@@ -60,8 +64,16 @@ export default {
       let photos = JSON.parse(localStorage.getItem('photos')) || [];
       if (photos.length < this.photoQuota) {
         photos.push(photo);
-        localStorage.setItem('photos', JSON.stringify(photos));
-        this.displayPhotos();
+        try {
+          localStorage.setItem('photos', JSON.stringify(photos));
+          this.displayPhotos();
+        } catch (e) {
+          if (e.name === 'QuotaExceededError') {
+            this.showNotification('Erreur: Quota de stockage local dépassé!');
+          } else {
+            console.error('Erreur lors de l\'enregistrement de la photo:', e);
+          }
+        }
       } else {
         this.showNotification('Quota de photos atteint!');
       }
@@ -79,6 +91,10 @@ export default {
       photos.splice(index, 1);
       localStorage.setItem('photos', JSON.stringify(photos));
       this.displayPhotos();
+    },
+    openPhotoInNewTab(photo) {
+      const newWindow = window.open();
+      newWindow.document.write(`<img src="${photo}" style="width:100%">`);
     }
   }
 };

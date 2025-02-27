@@ -3,8 +3,7 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/icons/icon-192x192.png',
-  '/icons/icon-512x512.png'
+  '/favicon.png',
 ];
 
 self.addEventListener('install', event => {
@@ -23,4 +22,18 @@ self.addEventListener('fetch', event => {
         return response || fetch(event.request);
       })
   );
+});
+
+let deferredEvent;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredEvent = e;
+});
+
+const installButton = document.getElementById('installButton');
+installButton.addEventListener('click', () => {
+  if (deferredEvent) {
+    deferredEvent.prompt();
+  }
 });

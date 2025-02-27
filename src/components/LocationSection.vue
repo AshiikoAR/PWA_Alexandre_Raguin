@@ -1,7 +1,13 @@
 <template>
   <div class="location-section">
-    <p>Latitude &times; Longitude : {{ latitude }} / {{ longitude }}</p>
-    <p>Adresse : {{ address }}</p>
+    <span>
+      <h1>Latitude &times; Longitude</h1>
+      <p>{{ latitude }} / {{ longitude }}</p>
+    </span>
+    <span>
+  <h1>Adresse (approximative)</h1>
+  <p>{{ address }}</p>
+    </span>
   </div>
 </template>
 
